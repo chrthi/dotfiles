@@ -11,5 +11,6 @@
   "jedi.diagnostics.didOpen": true,
   "jedi.diagnostics.didChange": true,
   "jedi.diagnostics.didSave": true,
-  "jedi.workspace.extraPaths": []
+  "jedi.workspace.extraPaths": [],
+  "clangd.arguments": ["--background-index", "--clang-tidy", "--cross-file-rename", "--fallback-style=none", "--header-insertion=iwyu"]
 }
