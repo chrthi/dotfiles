@@ -15,6 +15,7 @@ pkg git git
 pkg nvim neovim
 pkg zsh zsh
 pkg tmux tmux
+[[ -f "/usr/share/tmux-plugin-manager/tpm" ]] || APT="$APT tmux-plugin-manager"
 pkg black black
 pkg node nodejs  # For coc-nvim
 pkg npx npm  # For coc-git
@@ -54,8 +55,14 @@ maybeclone() { [[ -d "$2" ]] || git clone "$1" "$2"; }
 # Oh my Zsh extension for zsh
 maybeclone "https://github.com/ohmyzsh/ohmyzsh.git" "$HOME/.oh-my-zsh"
 
-# tmux package manager
-maybeclone "https://github.com/tmux-plugins/tpm" "$CONFIG/tmux/plugins/tpm"
+# tmux package manager is installed globally
+# maybeclone "https://github.com/tmux-plugins/tpm" "$CONFIG/tmux/plugins/tpm"
+if [[ `(echo 'tmux 3.1'; tmux -V) | sort -k 2 -V -s | tail -n 1` == 'tmux 3.1' ]]; then
+  # tmux version less than 3.1?
+  ln -s ".config/tmux/tmux.conf" "$HOME/.tmux.conf"
+fi
+mkdir -p "$HOME/.tmux/"
+ln -s "../.config/tmux/plugins" "$HOME/.tmux/plugins"
 
 # Vim8/neovim package manager
 maybeclone "https://github.com/k-takata/minpac.git" "$CONFIG/nvim/pack/minpac/opt/minpac"
