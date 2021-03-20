@@ -1,4 +1,9 @@
 " vim: set et sw=2 ts=2 ai:
+
+" Created by the dotfiles install script, this defines the features (e.g.
+" programming languages) we want to use on this machine.
+runtime features.vim
+
 if &compatible
   " `:set nocp` has many side effects. Therefore this should be done
   " only when 'compatible' is set.

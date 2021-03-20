@@ -1,3 +1,9 @@
+" vim: et ts=2 sts=2 sw=2
+
+if !has('nvim-0.3.2') && !has('patch-8.0.1453')
+  finish
+endif
+
 " Don't unload buffers when switching away. If not set, coc TextEdit might fail.
 set hidden
 

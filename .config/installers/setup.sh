@@ -66,10 +66,14 @@ ln -s "../.config/tmux/plugins" "$HOME/.tmux/plugins"
 
 # Vim8/neovim package manager
 maybeclone "https://github.com/k-takata/minpac.git" "$CONFIG/nvim/pack/minpac/opt/minpac"
-
-# Python development
-curl https://raw.githubusercontent.com/psf/black/stable/plugin/black.vim -o "$CONFIG/nvim/plugin/black.vim"
-
+# Vim features / plugins to enable
+cat > "$CONFIG/nvim/features.vim" <<EOF
+" todo: Have the install script ask questions before installation and create
+" this file accordingly.
+let g:have_c=1
+let g:have_python=1
+let g:have_latex=1
+EOF
 nvim --headless '+PackUpdate' +qa
 
 #chsh -s "$(which zsh)"
