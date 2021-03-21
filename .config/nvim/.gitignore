@@ -1,3 +1,4 @@
 doc/
 pack/minpac
-.netrwhist
+/features.vim
+/.netrwhist
