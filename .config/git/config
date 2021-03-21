@@ -1,0 +1,6 @@
+[include]
+	path = personal.config
+[init]
+	defaultBranch = main
+[pull]
+	ff = only

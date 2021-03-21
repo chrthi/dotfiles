@@ -1,13 +1,13 @@
 #!/bin/bash
 # vim: et sw=2 ts=2 ai :
 
-CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
-
 # may be useful for OS-dependent stuff, e.g. choosing a package manager
 #[ -f /etc/os-release ] && source /etc/os-release
 
-APT=""
+CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
+maybeclone() { [[ -d "$2" ]] || git clone "$1" "$2"; }
 cmd() { command -v $1 >/dev/null 2>&1; }
+APT=""
 pkg() { cmd $1 || APT="$APT $2"; }
 
 # Check for presence of software or install it
@@ -35,7 +35,16 @@ else
   echo "Nothing to install."
 fi
 
-mkdir -p "$CONFIG/nvim/pack/manual/"{opt,start}
+mkdir -p "$CONFIG/nvim/pack/manual/"{opt,start} "$CONFIG/git"
+
+echo "Please enter your settings for $CONFIG/git/personal.config:"
+read -e -i 'Christian Thießen' -p 'Name: ' gitname
+read -e -i 'flos''s@ct''hiessen.de' -p 'E-Mail address: ' gitemail
+cat > "$CONFIG/git/personal.config" <<EOF
+[user]
+	name = $gitname
+	email = $gitemail
+EOF
 
 # For building coc-git. Doen't work when installed locally
 sudo npm install -g npx-run npm-run-all
@@ -49,8 +58,6 @@ unzip /tmp/fonts-master.zip -d "/tmp"
 cp -r "/tmp/fonts-master/SourceCodePro" "$HOME/.local/share/fonts/"
 rm /tmp/fonts-master.zip
 fc-cache
-
-maybeclone() { [[ -d "$2" ]] || git clone "$1" "$2"; }
 
 # Oh my Zsh extension for zsh
 maybeclone "https://github.com/ohmyzsh/ohmyzsh.git" "$HOME/.oh-my-zsh"
@@ -76,4 +83,7 @@ let g:have_latex=1
 EOF
 nvim --headless '+PackUpdate' +qa
 
-#chsh -s "$(which zsh)"
+if cmd zsh; then
+  echo "Changing shell to zsh."
+  chsh -s "$(which zsh)"
+fi
