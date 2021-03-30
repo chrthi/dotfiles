@@ -50,6 +50,8 @@ DEFAULT_USER="$(whoami)"
 # See https://github.com/ohmyzsh/ohmyzsh/issues/5765
 # COMPLETION_WAITING_DOTS="true"
 
+[[ "$LD_PRELOAD:" = *libpseudo.so:* ]] && ZSH_DISABLE_COMPFIX=true
+
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
