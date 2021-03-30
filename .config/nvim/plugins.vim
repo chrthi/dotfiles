@@ -33,9 +33,9 @@ function! PackInit() abort
   " git (coc-git is still incomplete)
   call minpac#add('tpope/vim-fugitive')
   " Meson build system
-  if g:have_c | call minpac#add('igankevich/mesonic') | endif
+  if g:have_c || g:have_yocto | call minpac#add('igankevich/mesonic') | endif
   " Yocto bitbake
-  call minpac#add('kergoth/vim-bitbake')
+  if g:have_yocto | call minpac#add('kergoth/vim-bitbake')
 endfunction
 
 if has('nvim-0.2') || has('patch-8.0.50') " Minimum neovim / vim8 version for minpac

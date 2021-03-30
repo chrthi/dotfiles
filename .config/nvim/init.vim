@@ -2,6 +2,10 @@
 
 " Created by the dotfiles install script, this defines the features (e.g.
 " programming languages) we want to use on this machine.
+let g:have_c=0
+let g:have_python=0
+let g:have_latex=0
+let g:have_yocto=0
 runtime features.vim
 
 if &compatible
