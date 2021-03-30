@@ -106,14 +106,9 @@ export KEYTIMEOUT=10
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+[[ -f ~/.profile ]] && source ~/.profile
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 setopt complete_aliases
 compdef rt=ssh
 
 #source ~/perl5/perlbrew/etc/bashrc
-
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
