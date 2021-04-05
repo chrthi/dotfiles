@@ -1,4 +1,5 @@
 let g:coc_supported = (has('nvim-0.3.2') || has('patch-8.0.1453')) && executable('node')
+
 " minpac needs to run only when changing/updating packages. So put all
 " package management in a function to not slow down normal startup.
 function! PackInit() abort
@@ -43,5 +44,18 @@ if has('nvim-0.2') || has('patch-8.0.50') " Minimum neovim / vim8 version for mi
   command! PackClean  source $MYVIMRC | call PackInit() | call minpac#clean()
   command! PackStatus packadd minpac | call minpac#init() | call minpac#status()
 endif
+
+augroup PackFTLoad
+  autocmd!
+  if g:have_c
+    autocmd FileType c packadd coc-clangd
+  endif
+  if g:have_python
+    autocmd FileType python packadd coc-pyright | packadd black
+  endif
+  if g:have_latex
+    autocmd FileType tex packadd coc-texlab
+  endif
+augroup END
 
 if g:coc_supported | runtime coc.vim | endif
