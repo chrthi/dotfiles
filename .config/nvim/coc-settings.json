@@ -12,5 +12,5 @@
   "jedi.diagnostics.didChange": true,
   "jedi.diagnostics.didSave": true,
   "jedi.workspace.extraPaths": [],
-  "clangd.arguments": ["--background-index", "--clang-tidy", "--cross-file-rename", "--fallback-style=none", "--header-insertion=iwyu"]
+  "clangd.arguments": ["--background-index", "--clang-tidy", "--cross-file-rename", "--fallback-style=none", "--header-insertion=iwyu", "--query-driver=/usr/bin/*-gcc,/usr/bin/*-g++,/opt/**/*-gcc,/opt/**/*-g++"]
 }
