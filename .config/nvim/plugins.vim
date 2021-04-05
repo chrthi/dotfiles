@@ -34,7 +34,10 @@ function! PackInit() abort
   " git (coc-git is still incomplete)
   call minpac#add('tpope/vim-fugitive')
   " Meson build system
-  if g:have_c || g:have_yocto | call minpac#add('igankevich/mesonic') | endif
+  if g:have_c || g:have_yocto
+    call minpac#add('igankevich/mesonic')
+    call minpac#add('cdelledonne/vim-cmake')
+  endif
   " Yocto bitbake
   if g:have_yocto | call minpac#add('kergoth/vim-bitbake') | endif
 endfunction
@@ -59,3 +62,5 @@ augroup PackFTLoad
 augroup END
 
 if g:coc_supported | runtime coc.vim | endif
+
+let g:cmake_generate_options = ["-DCMAKE_EXPORT_COMPILE_COMMANDS=1"]
