@@ -35,7 +35,7 @@ function! PackInit() abort
   " Meson build system
   if g:have_c || g:have_yocto | call minpac#add('igankevich/mesonic') | endif
   " Yocto bitbake
-  if g:have_yocto | call minpac#add('kergoth/vim-bitbake')
+  if g:have_yocto | call minpac#add('kergoth/vim-bitbake') | endif
 endfunction
 
 if has('nvim-0.2') || has('patch-8.0.50') " Minimum neovim / vim8 version for minpac
