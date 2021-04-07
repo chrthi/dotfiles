@@ -17,7 +17,7 @@ if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
   export PYENV_ROOT="$HOME/.pyenv"
   PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+  [ -d "$PYENV_ROOT/plugins/pyenv-virtualenv" ] && eval "$(pyenv virtualenv-init -)"
 fi
 
 export PATH
