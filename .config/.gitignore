@@ -1,15 +1,20 @@
 /autostart/
+/binwalk/
 /chromium/
 /coc/
 /Code/
 /dconf/
 /enchant/
+/filezilla/
 /FreeCAD/
+/gedit/
 /GIMP/
 /gtk-2.0/
 /gtk-3.0/
+/htop/
 /inkscape/
 /JetBrains/
+/jgit/
 /kdeconnect/
 /keepassxc/
 /kicad/
@@ -18,12 +23,20 @@
 /menus/
 /Mousepad/
 /mpv/
+/nemo/
+/octave/
+/pluma/
 /procps/
 /ptpython/
 /pulse/
+/QDirStat/
+/Qt/
+/qt-box-editor/
+/QtProject/
 /qpdfview/
 /ReText project/
 /ristretto/
+/spicy/
 /Thunar/
 /vlc/
 /wireshark/
@@ -31,8 +44,14 @@
 /xfce4/
 /Yubico/
 
+/configstore/update-notifier-npm.json
+/glade.conf
 /QtProject.conf
 /kde*
+/markdown-extensions.txt
 /mimeapps.list
 /pavucontrol.ini
+/screenkey.json
+/Trolltech.conf
 /user-dirs.*
+/*/history

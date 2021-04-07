@@ -1,5 +1,15 @@
+# PyCharm
+.idea/
+
+# Eclipse
 .project/
 .cproject/
-.idea/
+.settings/
+
+# vim, coc, language servers
 .vim/
+.clangd/
+compile_commands.json
+
+# Out-of-tree build dirs
 build/
