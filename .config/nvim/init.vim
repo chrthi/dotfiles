@@ -6,6 +6,7 @@ let g:have_c=0
 let g:have_python=0
 let g:have_latex=0
 let g:have_yocto=0
+let g:have_bash=0
 runtime features.vim
 
 if &compatible

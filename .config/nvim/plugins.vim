@@ -29,6 +29,10 @@ function! PackInit() abort
     if g:have_python | call minpac#add('fannheyward/coc-pyright', {'do': 'silent !(yarnpkg install --frozen-lockfile)' }) | endif
     " LaTeX
     if g:have_latex | call minpac#add('fannheyward/coc-texlab', {'do': 'silent !(yarnpkg install --frozen-lockfile)'}) | endif
+    " Bash
+    if g:have_bash
+      call minpac#add('josa42/coc-sh', {'do': 'silent !(yarnpkg install --frozen-lockfile)'})
+    endif
   endif
 
   " git (coc-git is still incomplete)

@@ -17,11 +17,15 @@ pkg zsh zsh
 pkg tmux tmux
 [[ -f "/usr/share/tmux-plugin-manager/tpm" ]] || APT="$APT tmux-plugin-manager"
 pkg black black
+pkg shellcheck shellcheck
 pkg node nodejs  # For coc-nvim
 pkg npx npm  # For coc-git
+pkg go "golang-go golang-src"  # For shfmt
 pkg yarnpkg yarnpkg  # For building node-based coc extensions. Seems to be known as 'yarn' - is 'yarnpkg' debian-specific?
 [[ -f "/usr/share/fonts/opentype/PowerlineSymbols.otf" ]] || APT="$APT fonts-powerline"
 python3 -m ensurepip -h >/dev/null 2>&1 || APT="$APT python3-venv"
+GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
+go get github.com/mattn/efm-langserver
 
 if [[ -n $APT ]]; then
   echo "Need to install: $APT"
@@ -80,6 +84,8 @@ cat > "$CONFIG/nvim/features.vim" <<EOF
 let g:have_c=1
 let g:have_python=1
 let g:have_latex=1
+let g:have_yocto=1
+let g:have_bash=1
 EOF
 nvim --headless '+PackUpdate' +qa
 
