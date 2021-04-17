@@ -24,11 +24,11 @@ function! PackInit() abort
     " git
     call minpac#add('neoclide/coc-git', {'do': 'silent !(yarnpkg install --frozen-lockfile)'})
     " C/C++
-    if g:have_c | call minpac#add('clangd/coc-clangd', {'type': 'opt', 'do': 'silent !(yarnpkg install --frozen-lockfile)'}) | endif
+    if g:have_c | call minpac#add('clangd/coc-clangd', {'do': 'silent !(yarnpkg install --frozen-lockfile)'}) | endif
     " Python
-    if g:have_python | call minpac#add('fannheyward/coc-pyright', {'type': 'opt', 'do': 'silent !(yarnpkg install --frozen-lockfile)' }) | endif
+    if g:have_python | call minpac#add('fannheyward/coc-pyright', {'do': 'silent !(yarnpkg install --frozen-lockfile)' }) | endif
     " LaTeX
-    if g:have_latex | call minpac#add('fannheyward/coc-texlab', {'type': 'opt', 'do': 'silent !(yarnpkg install --frozen-lockfile)'}) | endif
+    if g:have_latex | call minpac#add('fannheyward/coc-texlab', {'do': 'silent !(yarnpkg install --frozen-lockfile)'}) | endif
   endif
 
   " git (coc-git is still incomplete)
@@ -48,18 +48,12 @@ if has('nvim-0.2') || has('patch-8.0.50') " Minimum neovim / vim8 version for mi
   command! PackStatus packadd minpac | call minpac#init() | call minpac#status()
 endif
 
-augroup PackFTLoad
-  autocmd!
-  if g:have_c
-    autocmd FileType c packadd coc-clangd
-  endif
-  if g:have_python
-    autocmd FileType python packadd coc-pyright | packadd black
-  endif
-  if g:have_latex
-    autocmd FileType tex packadd coc-texlab
-  endif
-augroup END
+" augroup PackFTLoad
+"   autocmd!
+"   if g:have_foo
+"     autocmd FileType foo packadd fooplugin
+"   endif
+" augroup END
 
 if g:coc_supported | runtime coc.vim | endif
 
