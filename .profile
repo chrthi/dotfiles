@@ -34,26 +34,53 @@ export PATH
 export EDITOR=vim
 export VISUAL=vim
 
+[ -n "$SSH_TTY" -a -n "$TMUX" ] && export SSH_AUTH_SOCK="$HOME/.ssh/ssh_auth_sock"
+
 ssh_agent_run() {
-  local ssh_agent="$(which ssh-agent)"
-  if [ -z "$SSH_AUTH_SOCK" -a -x "$ssh_agent" ]; then
-    eval `$ssh_agent -s` > /dev/null
-    trap "kill $SSH_AGENT_PID" 0
-  fi
+  local ssh_agent="$(command -v ssh-agent)"
+  [ -x "$ssh_agent" ] || return 1
+  eval `$ssh_agent -s` > /dev/null
+  trap "kill $SSH_AGENT_PID" 0
 }
 
 ssh_agent_addkeys() {
-  local ssh_add="$(which ssh-add)"
-  if [ -n "$SSH_AGENT_PID" -a -x "$ssh_add" -a -d "$HOME/.ssh" ]; then
-    local keys=""
-    local key
-    for key in "$@"; do
-      [ -f "$HOME/.ssh/$key" ] && keys="$keys $HOME/.ssh/$key"
-    done
-    [ -n $keys ] && "$ssh_add" $keys >/dev/null 2>&1
-  fi
+  local ssh_add="$(command -v ssh-add)"
+  [ -x "$ssh_add" ] || return 1
+  local key
+  for key in "$@"; do
+    case "$key" in
+      /*) [ -f "$key" ] && "$ssh_add" "$key" >/dev/null 2>&1 ;;
+      * ) [ -f "$HOME/.ssh/$key" ] && "$ssh_add" "$HOME/.ssh/$key" >/dev/null 2>&1 ;;
+    esac
+  done
 }
 
-ssh_agent_run
-ssh_agent_addkeys id_ed25519 id_rsa
-unset -f ssh_agent_run ssh_agent_addkeys
+ssh_agent_add_tsh() {
+  # Add tsh certs if they are still valid.
+  # Otherwise I'll have to tsh login again anyway.
+  local ssh_add=`command -v ssh-add`
+  local ssh_keygen=`command -v ssh-keygen`
+  local gawk=`command -v gawk`
+  [ -x "$ssh_add" -a -x "$ssh_keygen" -a -x "$gawk" ] || return 1
+  for d in $HOME/.tsh/keys/*/*; do
+    [ -f "$d-cert.pub" ] || continue
+    "$ssh_keygen" -L -f "$d-cert.pub" | \
+    "$gawk" '/Valid:/{ \
+      from=mktime(gensub(/[T:-]/," ","g",$3)); \
+      to=mktime(gensub(/[T:-]/," ","g",$5)); \
+      now=systime(); \
+      if(now < from || now > to) \
+        exit 1; \
+    }' && \
+    "$ssh_add" "$d" "$d-cert.pub" >/dev/null 2>&1
+  done
+}
+
+if [ -z "$SSH_AUTH_SOCK" -a -z "$SSH_CONNECTION" ] && ssh_agent_run; then
+  ssh_agent_addkeys id_ed25519 id_rsa
+  ssh_agent_add_tsh
+fi
+
+[ -f "$HOME/.profile.local" ] && source "$HOME/.profile.local"
+
+unset -f ssh_agent_run ssh_agent_addkeys ssh_agent_add_tsh
