@@ -113,4 +113,15 @@ export KEYTIMEOUT=10
 setopt complete_aliases
 compdef rt=ssh
 
+# Disable pyenv. It is known to conflict with yocto builds.
+nopyenv() {
+  precmd_functions=( "${precmd_functions[@]/_pyenv_virtualenv_hook}" )
+  export PATH=`echo ":$PATH" | sed "s#:$HOME/.pyenv/[^:]*##g;s#^:##"`
+  rehash
+  # In case yocto has already picked up the pyenv python3 shim, change the symlink back to the original python.
+  if [[ -n $BBPATH && -h $BBPATH/tmp/hosttools/python3 && $(readlink $BBPATH/tmp/hosttools/python3) == $HOME/.pyenv/* ]]; then
+    ln -sf $(command -v python3) "$BBPATH/tmp/hosttools/python3"
+  fi
+}
+
 #source ~/perl5/perlbrew/etc/bashrc

@@ -9,13 +9,22 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+path_prepend() {
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) PATH="$1:$PATH" ;;
+  esac
+}
+
 # set PATH so it includes user's private bin if it exists
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+for d in "$HOME/bin" "$HOME/.local/bin"; do
+  [ -d "$d" ] && path_prepend "$d"
+done
 
 if [ -x "$HOME/.pyenv/bin/pyenv" ]; then
+  PATH=`echo ":$PATH" | sed "s#:$HOME/.pyenv/[^:]*##g;s#^:##"`
   export PYENV_ROOT="$HOME/.pyenv"
-  PATH="$PYENV_ROOT/bin:$PATH"
+  path_prepend "$PYENV_ROOT/bin"
   eval "$(pyenv init -)"
   [ -d "$PYENV_ROOT/plugins/pyenv-virtualenv" ] && eval "$(pyenv virtualenv-init -)"
 fi
