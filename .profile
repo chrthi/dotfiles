@@ -66,17 +66,24 @@ ssh_agent_add_tsh() {
   ssh_keygen=$(command -v ssh-keygen)
   gawk=$(command -v gawk)
   [ -x "$ssh_add" ] && [ -x "$ssh_keygen" ] && [ -x "$gawk" ] || return 1
-  for d in "$HOME/.tsh/keys/"*/*; do
-    [ -f "$d-cert.pub" ] || continue
-    "$ssh_keygen" -L -f "$d-cert.pub" | "$gawk" '
+  for key in "$HOME/.tsh/keys/"*/*; do
+    [ -d "$key-ssh" ] || continue
+    for cert in "$key-ssh/"*-cert.pub; do
+      if "$ssh_keygen" -L -f "$cert" | gawk '
 /Valid:/{
-  from=mktime(gensub(/[T:-]/," ","g",' '$' '3));
-  to=mktime(gensub(/[T:-]/," ","g",' '$' '5));
+  from=mktime(gensub(/[T:-]/," ","g",$3));
+  to=mktime(gensub(/[T:-]/," ","g",$5));
   now=systime();
   if(now < from || now > to)
     exit 1;
-}' \
-      && "$ssh_add" "$d" "$d-cert.pub" >/dev/null 2>&1
+}'; then
+        # Create symlinks to the keys next to the cert.
+        # This seems to be the only way to get ssh-add to pick them up.
+        ln -sf "$key" "${cert%*-cert.pub}"
+        ln -sf "$key.pub" "${cert%*-cert.pub}.pub"
+        "$ssh_add" -v "${cert%*-cert.pub}" >/dev/null 2>&1
+      fi
+    done
   done
 }
 
