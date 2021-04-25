@@ -8,6 +8,8 @@
 	default = simple
 [merge]
 	conflictStyle = diff3
+[advice]
+	detachedHead = false
 [alias]
 	addnw = !sh -c 'git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero -'
 [filter "kicad_project"]
