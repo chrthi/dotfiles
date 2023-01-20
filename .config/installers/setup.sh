@@ -41,10 +41,10 @@ fi
 
 mkdir -p "$CONFIG/nvim/pack/manual/"{opt,start} "$CONFIG/git"
 
-echo "Please enter your settings for $CONFIG/git/personal.config:"
+echo "Please enter your settings for $CONFIG/git/local.config:"
 read -e -i 'Christian Thießen' -p 'Name: ' gitname
 read -e -i 'flos''s@ct''hiessen.de' -p 'E-Mail address: ' gitemail
-cat > "$CONFIG/git/personal.config" <<EOF
+cat > "$CONFIG/git/local.config" <<EOF
 [user]
 	name = $gitname
 	email = $gitemail

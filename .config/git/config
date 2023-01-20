@@ -1,5 +1,5 @@
 [include]
-	path = personal.config
+	path = local.config
 [init]
 	defaultBranch = main
 [pull]
