@@ -33,7 +33,7 @@ set shell=zsh
 "   :augroup! should be used properly to avoid the same autogroups are defined twice.
 
 " Color scheme: solarized dark
-syntax enable
+"syntax enable
 set background=dark
 " colorscheme solarized8
 colorscheme NeoSolarized
@@ -57,5 +57,7 @@ augroup END
 
 " LaTeX
 let g:tex_flavor = "latex"
+
+autocmd BufWritePre *.h,*.c,*.hpp,*.cpp if exists("b:format_cmd") | execute b:format_cmd | endif
 
 runtime plugins.vim
