@@ -13,7 +13,14 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "python"
   ],
-  "clangd.arguments": ["--background-index", "--clang-tidy", "--cross-file-rename", "--fallback-style=none", "--header-insertion=iwyu", "--query-driver=/usr/bin/*-gcc,/usr/bin/*-g++,/opt/**/*-gcc,/opt/**/*-g++"],
+  "clangd.arguments": [
+    "--background-index",
+    "--clang-tidy",
+    "--cross-file-rename",
+    "--fallback-style=none",
+    "--header-insertion=iwyu",
+    "--query-driver=/usr/bin/*-gcc,/usr/bin/*-g++,/opt/**/*-gcc,/opt/**/*-g++"
+  ],
   "latex.build.executable": "latexmk",
   "latex.build.args": [
     "-lualatex",
