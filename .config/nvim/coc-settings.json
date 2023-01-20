@@ -2,7 +2,11 @@
   "languageserver": {
     "efm": {
       "command": "efm-langserver",
-      "filetypes": ["markdown", "sh", "vim", "yaml"]
+      "args": [],
+      "filetypes": [
+        "sh",
+        "xml"
+      ]
     }
   },
   "clangd.arguments": ["--background-index", "--clang-tidy", "--cross-file-rename", "--fallback-style=none", "--header-insertion=iwyu", "--query-driver=/usr/bin/*-gcc,/usr/bin/*-g++,/opt/**/*-gcc,/opt/**/*-g++"],

@@ -1,6 +1,9 @@
 version: 2
 root-markers:
   - .git/
+  - .vim/
+#log-file: /tmp/efm.log
+#log-level: 7
 #commands:
 
 tools:
@@ -81,7 +84,7 @@ tools:
       - '%f:%l %m'
 
   sh-shellcheck: &sh-shellcheck
-    lint-command: 'shellcheck -f gcc -x'
+    lint-command: 'shellcheck -f gcc -x -P SCRIPTDIR'
     lint-source: 'shellcheck'
     lint-formats:
       - '%f:%l:%c: %trror: %m'
@@ -90,6 +93,15 @@ tools:
 
   sh-shfmt: &sh-shfmt
     format-command: 'shfmt -ci -s -bn -i 2'
+    format-stdin: true
+
+  xmllint-check: &xmllint-check
+    lint-command: 'xmllint --nonet --noout'
+    lint-formats:
+      - '%f:%l: %m'
+
+  xmllint-format: &xmllint-format
+    format-command: 'xmllint --format --nonet -'
     format-stdin: true
 
   javascript-eslint: &javascript-eslint
@@ -185,6 +197,10 @@ languages:
   sh:
     - <<: *sh-shellcheck
     - <<: *sh-shfmt
+
+  xml:
+    - <<: *xmllint-check
+    - <<: *xmllint-format
 
   javascript:
     - <<: *javascript-eslint
