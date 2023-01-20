@@ -15,6 +15,7 @@
 /.FreeCAD/
 /.gdbinit
 /.gimp-*/
+/.git-credentials
 /.gnome/
 /.gnome2/
 /.gnupg/
@@ -23,11 +24,15 @@
 /.histfile
 /.ICEauthority
 /.java/
+/.jfrog/
 /.kube/
+/.keydb-*-motd
 /.lesshst
 /.local/
+/.mitmproxy/
 /.mono/
 /.mozilla/
+/.netrc
 /.npm/
 /.npmrc
 /.oh-my-zsh/
@@ -45,6 +50,7 @@
 /.slocdata/
 /.Slic3r/
 /.ssr/
+/.sudo_as_admin_successful
 /.swt/
 /.texlive2020/texmf-var/luatex-cache
 /.thumbnails/
