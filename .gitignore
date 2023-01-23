@@ -16,6 +16,7 @@
 /.gdbinit
 /.gimp-*/
 /.git-credentials
+/.gitk
 /.gnome/
 /.gnome2/
 /.gnupg/
@@ -44,6 +45,8 @@
 /.PyCharm*/
 /.pyenv/
 /.qdirstat.cache.gz
+/.repo_.gitconfig.json
+/.repoconfig/
 /.rnd
 /.rpmdb/
 /.sane/
@@ -52,6 +55,7 @@
 /.ssr/
 /.sudo_as_admin_successful
 /.swt/
+/.terminfo/
 /.texlive2020/texmf-var/luatex-cache
 /.thumbnails/
 /.thunderbird/
