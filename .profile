@@ -18,7 +18,7 @@ path_prepend() {
 }
 
 # set PATH so it includes user's private bin if it exists
-for d in "$HOME/go/bin" "$HOME/bin" "$HOME/.local/bin"; do
+for d in "$HOME/go/bin" "$HOME/bin" "$HOME/.local/bin" "$HOME/.cargo/bin"; do
   [ -d "$d" ] && path_prepend "$d"
 done
 
