@@ -9,7 +9,7 @@
 # vim, coc, language servers
 .vim/
 .clangd/
-.cache/clangd/
+/**/.cache/clangd/
 compile_commands.json
 
 # Out-of-tree build dirs
