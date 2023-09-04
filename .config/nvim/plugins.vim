@@ -24,7 +24,11 @@ function! PackInit() abort
     " git
     call minpac#add('neoclide/coc-git', {'do': 'silent !(yarnpkg install --frozen-lockfile)'})
     " C/C++
-    if g:have_c | call minpac#add('clangd/coc-clangd', {'do': 'silent !(yarnpkg install --frozen-lockfile)'}) | endif
+    if g:have_c
+      call minpac#add('clangd/coc-clangd', {'do': 'silent !(yarnpkg install --frozen-lockfile)'})
+      call minpac#add('nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'})
+      call minpac#add('danymat/neogen', {'do': 'lua require(''neogen'').setup {}'})
+    endif
     " Python
     if g:have_python | call minpac#add('fannheyward/coc-pyright', {'do': 'silent !(yarnpkg install --frozen-lockfile)' }) | endif
     " LaTeX
