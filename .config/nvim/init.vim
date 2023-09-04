@@ -24,7 +24,7 @@ endif
 set modeline  " allow per-file settings via modeline
 set secure    " disable unsafe commands in local .vimrc files
 set scrolloff=5 " scroll the window so we always have cursor +/- n lines
-set printoptions=paper:A4
+"set printoptions=paper:A4
 set shell=zsh
 
 " To make your .vimrc reloadable:
@@ -57,6 +57,9 @@ augroup END
 
 " LaTeX
 let g:tex_flavor = "latex"
+
+" My .h files are usually c, not cpp
+let g:c_syntax_for_h = 1
 
 autocmd BufWritePre *.h,*.c,*.hpp,*.cpp if exists("b:format_cmd") | execute b:format_cmd | endif
 
